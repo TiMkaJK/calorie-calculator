@@ -1,0 +1,46 @@
+target/.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+Code
+
+# Build artifacts
+/target/
+/build/
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+
+# IDE-specific files
+.idea/
+.vscode/
+.classpath
+.project
+.settings/
+.factorypath
+*.iml
+*.iws
+*.ipr
+
+# Maven Wrapper
+.mvn/wrapper/maven-wrapper.jar
+
+# Environment variables and sensitive data
+.env
+application*.properties.example
+application*.yml.example
+*.log
+logs/
+
+# Operating System files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Temporary files
+*.tmp
+*~
+*.swp
+.#*
