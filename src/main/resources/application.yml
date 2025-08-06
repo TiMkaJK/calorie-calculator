@@ -1,0 +1,23 @@
+server:
+  port: 9090
+
+spring:
+  application:
+    name: calorie-calculator
+  ai:
+    openai:
+      api-key: ${OPENAI_API_KEY}
+#      chat:
+#        options:
+#          model: gpt-4.5-preview-2025-02-27
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/calorie-calculator
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+  liquibase:
+    change-log: classpath:/db/changelog/db.changelog-master.yaml
+    enabled: true
+
+file:
+  upload-dir: ./uploads

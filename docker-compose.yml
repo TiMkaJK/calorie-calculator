@@ -4,10 +4,10 @@ services:
   postgres:
     image: postgres:latest
     environment:
+      POSTGRES_DB: calorie-calculator
       POSTGRES_USER: tim
       POSTGRES_PASSWORD: KnX0212@!
-      POSTGRES_DB: calorie-calculator
-    volumes:
-      - ./data:/var/lib/postgresql/data
+#    volumes:
+#      - ./data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
