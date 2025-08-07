@@ -1,6 +1,5 @@
 package com.faceit.caloriecalculator.data.dto;
 
-import com.faceit.caloriecalculator.data.entity.Meal;
 import java.time.Instant;
 import java.util.Set;
 import lombok.AllArgsConstructor;
@@ -19,7 +18,7 @@ public class UserDTO {
     private String lastName;
     private String email;
     private Instant birthDate;
-    private Set<Meal> meals;
+    private Set<MealDTO> meals;
     private Instant createdAt;
     private Instant updatedAt;
 }

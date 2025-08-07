@@ -35,16 +35,16 @@ public class Item {
     private Integer weight;
 
     @Column(name = "proteins",  nullable = false)
-    private Integer proteins;
+    private Float proteins;
 
     @Column(name = "fats",  nullable = false)
-    private Integer fats;
+    private Float fats;
 
     @Column(name = "carbohydrates",  nullable = false)
-    private Integer carbohydrates;
+    private Float carbohydrates;
 
     @Column(name = "fiber",   nullable = false)
-    private Integer fiber;
+    private Float fiber;
 
     @Column(name = "created_at", updatable = false)
     @CreatedDate
