@@ -1,8 +1,6 @@
 package com.faceit.caloriecalculator.service;
 
-import com.faceit.caloriecalculator.data.dto.ItemDTO;
-import java.io.InputStream;
-import java.util.List;
+import com.faceit.caloriecalculator.data.entity.Item;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.ai.chat.client.ChatClient;
@@ -10,6 +8,9 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.MimeTypeUtils;
+
+import java.io.InputStream;
+import java.util.List;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -35,7 +36,7 @@ public class ChatGPTService {
                 * "fiber" - the amount of fiber per 100 grams of this product.\s
             """;
 
-    public List<ItemDTO> getMealItems(String contentType, InputStream imageInputStream) {
+    public List<Item> getMealItems(String contentType, InputStream imageInputStream, String locale) {
         return chatClient.prompt()
             .system(systemMessage -> systemMessage.text(SYSTEM_REQUEST))
             .user(userMessage -> userMessage
@@ -43,6 +44,6 @@ public class ChatGPTService {
                 .media(MimeTypeUtils.parseMimeType(contentType),
                     new InputStreamResource(imageInputStream)))
             .call()
-            .entity(new ParameterizedTypeReference<List<ItemDTO>>() {});
+            .entity(new ParameterizedTypeReference<List<Item>>() {});
     }
 }

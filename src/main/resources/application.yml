@@ -20,4 +20,4 @@ spring:
     enabled: true
 
 file:
-  upload-dir: ./uploads
+  upload-dir: ./images

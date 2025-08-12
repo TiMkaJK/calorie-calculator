@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class MealDTO {
 
     private Long id;
-    private String screenshotLink;
+    private String screenshot;
     private Set<ItemDTO> items;
     private Instant createdAt;
     private Instant updatedAt;

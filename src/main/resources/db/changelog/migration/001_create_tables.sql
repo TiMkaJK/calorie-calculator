@@ -50,5 +50,4 @@ CREATE TABLE items
             REFERENCES meals (id)
             ON DELETE CASCADE
 )
-
 --rollback DROP TABLE items;
