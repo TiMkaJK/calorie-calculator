@@ -34,6 +34,9 @@ public class Item {
     @Column(name = "weight",  nullable = false)
     private Integer weight;
 
+    @Column(name = "kilocalories", nullable = false)
+    private Float kilocalories;
+
     @Column(name = "proteins",  nullable = false)
     private Float proteins;
 

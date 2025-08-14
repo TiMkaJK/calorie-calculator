@@ -38,6 +38,7 @@ CREATE TABLE items
     id            SERIAL PRIMARY KEY,
     name          VARCHAR(255),
     weight        INT       NOT NULL,
+    kilocalories  REAL      NOT NULL,
     proteins      REAL      NOT NULL,
     fats          REAL      NOT NULL,
     carbohydrates REAL      NOT NULL,

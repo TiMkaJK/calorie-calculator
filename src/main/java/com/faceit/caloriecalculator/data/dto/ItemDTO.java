@@ -16,6 +16,7 @@ public class ItemDTO {
     private Long id;
     private String name;
     private Integer weight;
+    private BigDecimal kilocalories;
     private BigDecimal proteins;
     private BigDecimal fats;
     private BigDecimal carbohydrates;

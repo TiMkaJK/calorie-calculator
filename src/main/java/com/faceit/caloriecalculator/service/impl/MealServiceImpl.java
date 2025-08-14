@@ -3,6 +3,7 @@ package com.faceit.caloriecalculator.service.impl;
 import com.faceit.caloriecalculator.data.dto.MealDTO;
 import com.faceit.caloriecalculator.data.entity.Item;
 import com.faceit.caloriecalculator.data.entity.Meal;
+import com.faceit.caloriecalculator.data.mapper.MealMapper;
 import com.faceit.caloriecalculator.repository.MealRepository;
 import com.faceit.caloriecalculator.service.ChatGPTService;
 import com.faceit.caloriecalculator.service.FileStorageService;
@@ -23,23 +24,26 @@ import java.util.stream.Collectors;
 public class MealServiceImpl implements MealService {
 
     private final MealRepository mealRepository;
+    private final MealMapper mealMapper;
     private final ChatGPTService chatGPTService;
     private final FileStorageService fileStorageService;
 
     @Override
     public MealDTO save(MultipartFile photo, String locale) throws IOException {
+        String fileName = fileStorageService.storeFile(photo);
         Meal meal = new Meal();
         Set<Item> items = chatGPTService.getMealItems(photo.getContentType(), photo.getInputStream(), locale).stream()
-//                .map()
                 .collect(Collectors.toSet());
         meal.setItems(items);
-
-        fileStorageService.storeFile(photo);
-        return null;
+        meal.setScreenshotLink(fileName);
+        return mealMapper.toDto(mealRepository.save(meal));
     }
 
     private Float calculateSummary(Float item, Integer weight) {
-        return BigDecimal.valueOf(weight).multiply(BigDecimal.valueOf(item)).floatValue();
+        return BigDecimal.valueOf(weight)
+                .multiply(BigDecimal.valueOf(item))
+                .divide(BigDecimal.valueOf(100))
+                .floatValue();
     }
 }
 
