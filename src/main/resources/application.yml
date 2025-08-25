@@ -4,12 +4,22 @@ server:
 spring:
   application:
     name: calorie-calculator
+  jpa:
+    show-sql: true
   ai:
     openai:
       api-key: ${OPENAI_API_KEY}
       chat:
         options:
           model: gpt-4o-mini
+  spring:
+    security:
+      oauth2:
+        client:
+          registration:
+            google:
+              client-id: google-client-id
+              client-secret: google-client-secret
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/calorie-calculator

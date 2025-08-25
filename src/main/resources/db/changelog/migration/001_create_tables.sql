@@ -26,6 +26,7 @@ CREATE TABLE meals
     created_at      TIMESTAMP    NOT NULL,
     updated_at      TIMESTAMP,
     user_id         INT          NOT NULL,
+--     FOREIGN KEY (user_id) REFERENCES users (id),
     CONSTRAINT fk_user_id
         FOREIGN KEY (user_id)
             REFERENCES users (id)
@@ -46,9 +47,13 @@ CREATE TABLE items
     created_at    TIMESTAMP NOT NULL,
     updated_at    TIMESTAMP,
     meal_id       INT       NOT NULL,
+--     FOREIGN KEY (meal_id) REFERENCES meals (id),
     CONSTRAINT fk_meal_id
         FOREIGN KEY (meal_id)
             REFERENCES meals (id)
             ON DELETE CASCADE
-)
+);
 --rollback DROP TABLE items;
+
+insert into users(id, first_name, last_name, email, birth_date, created_at)
+values (2, 'D', 'P', 'test.com', current_timestamp, current_timestamp);

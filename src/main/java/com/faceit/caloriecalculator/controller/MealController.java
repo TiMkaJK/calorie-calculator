@@ -25,9 +25,7 @@ public class MealController {
     @PostMapping
     public ResponseEntity<MealDTO> saveMeal(@RequestPart("photo") MultipartFile photo,
                                             Locale locale) throws IOException {
-        mealService.save(photo, locale.getDisplayLanguage());
-
-        return ResponseEntity.ok(new MealDTO());
+        return ResponseEntity.ok(mealService.save(photo, locale.getDisplayLanguage()));
     }
 }
 

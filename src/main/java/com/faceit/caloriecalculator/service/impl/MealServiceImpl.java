@@ -3,6 +3,7 @@ package com.faceit.caloriecalculator.service.impl;
 import com.faceit.caloriecalculator.data.dto.MealDTO;
 import com.faceit.caloriecalculator.data.entity.Item;
 import com.faceit.caloriecalculator.data.entity.Meal;
+import com.faceit.caloriecalculator.data.entity.User;
 import com.faceit.caloriecalculator.data.mapper.MealMapper;
 import com.faceit.caloriecalculator.repository.MealRepository;
 import com.faceit.caloriecalculator.service.ChatGPTService;
@@ -34,9 +35,12 @@ public class MealServiceImpl implements MealService {
         Meal meal = new Meal();
         Set<Item> items = chatGPTService.getMealItems(photo.getContentType(), photo.getInputStream(), locale).stream()
                 .collect(Collectors.toSet());
-        meal.setItems(items);
+        meal.setItems(items.stream().peek(item -> item.setMeal(meal)).collect(Collectors.toSet()));
         meal.setScreenshotLink(fileName);
-        return mealMapper.toDto(mealRepository.save(meal));
+        meal.setUser(User.builder().id(2L).build());
+
+        MealDTO result = mealMapper.toDto(mealRepository.save(meal));
+        return result;
     }
 
     private Float calculateSummary(Float item, Integer weight) {

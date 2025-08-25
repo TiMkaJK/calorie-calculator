@@ -30,7 +30,7 @@ public class FileStorageService {
     }
 
     public String storeFile(MultipartFile file) {
-        String fileName = StringUtils.cleanPath("user-" + Instant.now());
+        String fileName = StringUtils.cleanPath(Instant.now() + ".jpg");
         try {
             if (fileName.contains("..")) {
                 throw new RuntimeException("Sorry! Filename contains invalid path sequence " + fileName);
@@ -55,6 +55,10 @@ public class FileStorageService {
         } catch (MalformedURLException ex) {
             throw new RuntimeException("File not found " + fileName, ex);
         }
+    }
+
+    private String generateFileName(String name) {
+        return String.format("%s-%s", Instant.now().getEpochSecond(), name);
     }
 }
 
