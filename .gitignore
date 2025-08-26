@@ -16,6 +16,7 @@ Code
 # IDE-specific files
 .idea/
 .vscode/
+images/
 .classpath
 .project
 .settings/
