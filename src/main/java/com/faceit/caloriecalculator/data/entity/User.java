@@ -44,7 +44,7 @@ public class User {
     @Column(name = "email", unique = true, nullable = false)
     private String email;
 
-    @Column(name = "birth_date", nullable = false)
+    @Column(name = "birth_date")
     private Instant birthDate;
 
     @OneToMany(mappedBy="user", orphanRemoval = true)

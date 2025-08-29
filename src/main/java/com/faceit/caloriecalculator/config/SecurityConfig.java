@@ -44,14 +44,12 @@ public class SecurityConfig {
             String email = oidcUser.getEmail();
             String firstName = oidcUser.getGivenName();
             String lastName = oidcUser.getFamilyName();
-//            String birthdate = oidcUser.getBirthdate();
 
             User user = userRepository.findByEmail(email)
                     .orElseGet(() -> User.builder()
                             .email(email)
                             .firstName(firstName)
                             .lastName(lastName)
-                            //.birthDate(Instant.parse(birthdate))
                             .build());
 
             userRepository.save(user);

@@ -12,7 +12,7 @@ CREATE TABLE users
     first_name VARCHAR(255)        NOT NULL,
     last_name  VARCHAR(255)        NOT NULL,
     email      VARCHAR(255) UNIQUE NOT NULL,
-    birth_date TIMESTAMP           NOT NULL,
+    birth_date TIMESTAMP           NULL,
     created_at TIMESTAMP           NOT NULL,
     updated_at TIMESTAMP
 );
@@ -54,6 +54,3 @@ CREATE TABLE items
             ON DELETE CASCADE
 );
 --rollback DROP TABLE items;
-
-insert into users(id, first_name, last_name, email, birth_date, created_at)
-values (2, 'D', 'P', 'test.com', current_timestamp, current_timestamp);
