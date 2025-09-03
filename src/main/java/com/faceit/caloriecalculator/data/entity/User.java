@@ -44,6 +44,9 @@ public class User {
     @Column(name = "email", unique = true, nullable = false)
     private String email;
 
+    @Column(name = "picture")
+    private String picture;
+
     @Column(name = "birth_date")
     private Instant birthDate;
 

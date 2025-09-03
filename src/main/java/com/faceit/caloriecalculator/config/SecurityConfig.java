@@ -13,8 +13,6 @@ import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.security.web.SecurityFilterChain;
 
-import java.time.Instant;
-
 @RequiredArgsConstructor
 @Configuration
 public class SecurityConfig {
@@ -27,7 +25,7 @@ public class SecurityConfig {
                 .cors(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/public/**", "/login", "/register", "/api/meals").permitAll() // Allow public access to these paths
+                        .requestMatchers("/public/**", "/login", "/register", "/api/meals", "/v3/api-docs", "/swagger-ui/***").permitAll() // Allow public access to these paths
                         .anyRequest().authenticated()) // All other requests require authentication
                 .oauth2Login(oauth2 -> oauth2
                         .userInfoEndpoint(userInfo -> userInfo.oidcUserService(this.oidcUserService())));
@@ -44,12 +42,14 @@ public class SecurityConfig {
             String email = oidcUser.getEmail();
             String firstName = oidcUser.getGivenName();
             String lastName = oidcUser.getFamilyName();
+            String picture = oidcUser.getPicture();
 
             User user = userRepository.findByEmail(email)
                     .orElseGet(() -> User.builder()
                             .email(email)
                             .firstName(firstName)
                             .lastName(lastName)
+                            .picture(picture)
                             .build());
 
             userRepository.save(user);
