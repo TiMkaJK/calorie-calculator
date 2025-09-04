@@ -8,14 +8,19 @@ DROP TABLE IF EXISTS users;
 
 CREATE TABLE users
 (
-    id         SERIAL PRIMARY KEY,
-    first_name VARCHAR(255)        NOT NULL,
-    last_name  VARCHAR(255)        NOT NULL,
-    email      VARCHAR(255) UNIQUE NOT NULL,
-    picture    VARCHAR(255)        NULL,
-    birth_date TIMESTAMP           NULL,
-    created_at TIMESTAMP           NOT NULL,
-    updated_at TIMESTAMP
+    id           SERIAL PRIMARY KEY,
+    first_name   VARCHAR(255)        NOT NULL,
+    last_name    VARCHAR(255)        NOT NULL,
+    email        VARCHAR(255) UNIQUE NOT NULL,
+    picture      VARCHAR(255)        NULL,
+    birth_date   TIMESTAMP           NULL,
+    weight       INT                 NULL,
+    height       INT                 NULL,
+    gender       VARCHAR(10)         NULL,
+    subscription VARCHAR(20)         NULL,
+    language     VARCHAR(20)         NULL,
+    created_at   TIMESTAMP           NOT NULL,
+    updated_at   TIMESTAMP
 );
 --rollback DROP TABLE users;
 
