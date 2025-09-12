@@ -2,6 +2,7 @@ package com.faceit.caloriecalculator.data.entity;
 
 import com.faceit.caloriecalculator.data.constant.Gender;
 import com.faceit.caloriecalculator.data.constant.Language;
+import com.faceit.caloriecalculator.data.constant.Role;
 import com.faceit.caloriecalculator.data.constant.Subscription;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -21,9 +22,14 @@ import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.Instant;
+import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Builder
@@ -34,7 +40,7 @@ import java.util.Set;
 @Entity
 @Table(name = "users")
 @EntityListeners(AuditingEntityListener.class)
-public class User {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -73,6 +79,10 @@ public class User {
     private Subscription subscription = Subscription.FREE;
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "role")
+    private Role role = Role.ROLE_USER;
+
+    @Enumerated(EnumType.STRING)
     @Column(name = "language", nullable = false)
     private Language language;
 
@@ -86,5 +96,26 @@ public class User {
     @Column(name = "updated_at")
     @LastModifiedDate
     private Instant updatedAt;
+
+    /**
+     * Returns the authorities granted to the user. Cannot return <code>null</code>.
+     *
+     * @return the authorities, sorted by natural key (never <code>null</code>)
+     */
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(role.name()));
+    }
+
+    /**
+     * Returns the username used to authenticate the user. Cannot return
+     * <code>null</code>.
+     *
+     * @return the username (never <code>null</code>)
+     */
+    @Override
+    public String getUsername() {
+        return email;
+    }
 }
 

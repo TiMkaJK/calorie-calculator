@@ -19,7 +19,6 @@ import java.util.Locale;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/meals")
-
 public class MealController implements MealSwaggerDocumentation {
 
     private final MealService mealService;

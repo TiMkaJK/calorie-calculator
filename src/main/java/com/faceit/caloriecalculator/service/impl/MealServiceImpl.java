@@ -35,6 +35,7 @@ public class MealServiceImpl implements MealService {
         Meal meal = new Meal();
         Set<Item> items = chatGPTService.getMealItems(photo.getContentType(), photo.getInputStream(), locale).stream()
                 .collect(Collectors.toSet());
+
         meal.setItems(items.stream().peek(item -> item.setMeal(meal)).collect(Collectors.toSet()));
         meal.setScreenshotLink(fileName);
         meal.setUser(User.builder().id(2L).build());

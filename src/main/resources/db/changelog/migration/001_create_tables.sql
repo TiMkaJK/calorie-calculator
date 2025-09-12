@@ -1,5 +1,4 @@
 --liquibase formatted sql
-
 --changeset Dmitry Pristavka:1
 
 DROP TABLE IF EXISTS items;
