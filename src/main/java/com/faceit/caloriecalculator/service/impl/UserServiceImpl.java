@@ -1,5 +1,8 @@
 package com.faceit.caloriecalculator.service.impl;
 
+import com.faceit.caloriecalculator.data.constant.Gender;
+import com.faceit.caloriecalculator.data.constant.Language;
+import com.faceit.caloriecalculator.data.constant.Subscription;
 import com.faceit.caloriecalculator.data.dto.UserRequest;
 import com.faceit.caloriecalculator.data.entity.User;
 import com.faceit.caloriecalculator.repository.UserRepository;
@@ -23,6 +26,13 @@ public class UserServiceImpl implements UserService {
         User user = User.builder()
                 .email(userRequest.getEmail())
                 .password(passwordEncoder.encode(userRequest.getPassword()))
+                .firstName("Tim")
+                .lastName("Kumar")
+                .subscription(Subscription.FREE)
+                .language(Language.ENGLISH)
+                .weight(167)
+                .height(177)
+                .gender(Gender.MALE)
                 .build();
 
         return userRepository.save(user);

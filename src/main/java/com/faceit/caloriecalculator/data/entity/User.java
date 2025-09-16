@@ -97,22 +97,11 @@ public class User implements UserDetails {
     @LastModifiedDate
     private Instant updatedAt;
 
-    /**
-     * Returns the authorities granted to the user. Cannot return <code>null</code>.
-     *
-     * @return the authorities, sorted by natural key (never <code>null</code>)
-     */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
     }
 
-    /**
-     * Returns the username used to authenticate the user. Cannot return
-     * <code>null</code>.
-     *
-     * @return the username (never <code>null</code>)
-     */
     @Override
     public String getUsername() {
         return email;
