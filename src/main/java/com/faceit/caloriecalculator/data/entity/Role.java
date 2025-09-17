@@ -6,7 +6,7 @@ import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,6 +18,8 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 @Builder
 @AllArgsConstructor
@@ -25,9 +27,9 @@ import java.time.Instant;
 @Setter
 @Getter
 @Entity
-@Table(name = "subscriptions")
+@Table(name = "roles")
 @EntityListeners(AuditingEntityListener.class)
-public class Subscription {
+public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,8 +41,8 @@ public class Subscription {
     @Column(name = "description")
     private String description;
 
-    @OneToOne(mappedBy = "subscription")
-    private User user;
+    @ManyToMany(mappedBy = "userRoles")
+    private Set<User> users = new HashSet<>();
 
     @CreatedDate
     @Column(name = "created_at", updatable = false)

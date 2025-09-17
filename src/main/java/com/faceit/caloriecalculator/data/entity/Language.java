@@ -25,9 +25,9 @@ import java.time.Instant;
 @Setter
 @Getter
 @Entity
-@Table(name = "subscriptions")
+@Table(name = "languages")
 @EntityListeners(AuditingEntityListener.class)
-public class Subscription {
+public class Language {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,10 +36,10 @@ public class Subscription {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "description")
-    private String description;
+    @Column(name = "code")
+    private String code;
 
-    @OneToOne(mappedBy = "subscription")
+    @OneToOne(mappedBy = "language")
     private User user;
 
     @CreatedDate

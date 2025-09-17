@@ -1,9 +1,7 @@
 package com.faceit.caloriecalculator.data.entity;
 
 import com.faceit.caloriecalculator.data.constant.Gender;
-import com.faceit.caloriecalculator.data.constant.Language;
-import com.faceit.caloriecalculator.data.constant.Role;
-import com.faceit.caloriecalculator.data.constant.Subscription;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
@@ -12,7 +10,11 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -74,16 +76,19 @@ public class User implements UserDetails {
     @Column(name = "gender", nullable = false)
     private Gender gender;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "subscription", nullable = false)
-    private Subscription subscription = Subscription.FREE;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "subscription_id", referencedColumnName = "id")
+    private Subscription subscription;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "role")
-    private Role role = Role.ROLE_USER;
+    @ManyToMany
+    @JoinTable(name = "user_roles",
+            joinColumns = @JoinColumn(name = "userId"),
+            inverseJoinColumns = @JoinColumn(name = "roleId")
+    )
+    private Set<Role> userRoles = new HashSet<>();
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "language", nullable = false)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "language_id", referencedColumnName = "id")
     private Language language;
 
     @OneToMany(mappedBy = "user", orphanRemoval = true)
@@ -99,7 +104,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name()));
+        return List.of(/*new SimpleGrantedAuthority(role.name())*/);
     }
 
     @Override

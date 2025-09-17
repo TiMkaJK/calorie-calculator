@@ -33,11 +33,12 @@ CREATE TABLE meals
     screenshot_link VARCHAR(100) NOT NULL,
     created_at      TIMESTAMP    NOT NULL,
     updated_at      TIMESTAMP,
-    user_id         INT          NOT NULL,
-    CONSTRAINT fk_user_meal
-        FOREIGN KEY (user_id)
-            REFERENCES users (id)
-            ON DELETE CASCADE
+    user_id         INTEGER REFERENCES users (id) ON DELETE CASCADE
+--     user_id         INT          NOT NULL,
+--     CONSTRAINT fk_user_meal
+--         FOREIGN KEY (user_id)
+--             REFERENCES users (id)
+--             ON DELETE CASCADE
 );
 --rollback DROP TABLE meals;
 
@@ -53,49 +54,51 @@ CREATE TABLE items
     fiber         REAL      NOT NULL,
     created_at    TIMESTAMP NOT NULL,
     updated_at    TIMESTAMP,
-    meal_id       INT       NOT NULL,
-    CONSTRAINT fk_meal_items
-        FOREIGN KEY (meal_id)
-            REFERENCES meals (id)
-            ON DELETE CASCADE
+    meal_id       INTEGER REFERENCES users (id) ON DELETE CASCADE
+--     meal_id       INT       NOT NULL,
+--     CONSTRAINT fk_meal_items
+--         FOREIGN KEY (meal_id)
+--             REFERENCES meals (id)
+--             ON DELETE CASCADE
 );
 --rollback DROP TABLE items;
 
 CREATE TABLE languages
 (
-    id      SERIAL PRIMARY KEY,
-    name    VARCHAR(50),
-    code    VARCHAR(5),
-    user_id INT NOT NULL,
-    CONSTRAINT fk_user_language
-        FOREIGN KEY (user_id)
-            REFERENCES users (id)
-            ON DELETE CASCADE
+    id         SERIAL PRIMARY KEY,
+    name       VARCHAR(50) NOT NULL,
+    code       VARCHAR(5)  NOT NULL,
+    created_at TIMESTAMP   NOT NULL,
+    updated_at TIMESTAMP,
+    user_id    INTEGER REFERENCES users (id) ON DELETE CASCADE
 );
 --rollback DROP TABLE languages;
 
 CREATE TABLE subscriptions
 (
     id          SERIAL PRIMARY KEY,
-    name        VARCHAR(50),
+    name        VARCHAR(50) NOT NULL,
     description VARCHAR(200),
-    user_id     INT NOT NULL,
-    CONSTRAINT fk_user_subscription
-        FOREIGN KEY (user_id)
-            REFERENCES users (id)
-            ON DELETE CASCADE
+    created_at  TIMESTAMP   NOT NULL,
+    updated_at  TIMESTAMP,
+    user_id    INTEGER REFERENCES users (id) ON DELETE CASCADE
 );
 --rollback DROP TABLE subscriptions;
 
 CREATE TABLE roles
 (
     id          SERIAL PRIMARY KEY,
-    name        VARCHAR(50),
+    name        VARCHAR(50) NOT NULL,
     description VARCHAR(200),
-    user_id     INT NOT NULL,
-    CONSTRAINT fk_user_role
-        FOREIGN KEY (user_id)
-            REFERENCES users (id)
-            ON DELETE CASCADE
+    created_at  TIMESTAMP   NOT NULL,
+    updated_at  TIMESTAMP
 );
 --rollback DROP TABLE roles;
+
+create table user_roles
+(
+    id      SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES users (id) ON DELETE CASCADE,
+    role_id INTEGER REFERENCES roles (id) ON DELETE CASCADE
+);
+--rollback DROP TABLE user_role;
