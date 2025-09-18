@@ -1,9 +1,11 @@
 package com.faceit.caloriecalculator.service.impl;
 
-import com.faceit.caloriecalculator.data.constant.Gender;
-import com.faceit.caloriecalculator.data.constant.Language;
-import com.faceit.caloriecalculator.data.constant.Subscription;
+import com.faceit.caloriecalculator.data.constant.UserGender;
+import com.faceit.caloriecalculator.data.constant.UserLanguage;
+import com.faceit.caloriecalculator.data.constant.UserSubscription;
 import com.faceit.caloriecalculator.data.dto.UserRequest;
+import com.faceit.caloriecalculator.data.entity.Language;
+import com.faceit.caloriecalculator.data.entity.Subscription;
 import com.faceit.caloriecalculator.data.entity.User;
 import com.faceit.caloriecalculator.repository.UserRepository;
 import com.faceit.caloriecalculator.service.UserService;
@@ -28,11 +30,11 @@ public class UserServiceImpl implements UserService {
                 .password(passwordEncoder.encode(userRequest.getPassword()))
                 .firstName("Tim")
                 .lastName("Kumar")
-                .subscription(Subscription.FREE)
-                .language(Language.ENGLISH)
+                .subscription(/*Subscription.FREE*/Subscription.builder().name(UserSubscription.FREE.name()).build())
+                .language(/*Language.ENGLISH*/Language.builder().name(UserLanguage.ENGLISH.name()).build())
                 .weight(167)
                 .height(177)
-                .gender(Gender.MALE)
+                .gender(UserGender.MALE)
                 .build();
 
         return userRepository.save(user);

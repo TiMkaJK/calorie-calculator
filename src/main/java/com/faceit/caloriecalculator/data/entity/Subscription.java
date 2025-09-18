@@ -17,6 +17,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.io.Serializable;
 import java.time.Instant;
 
 @Builder
@@ -27,7 +28,7 @@ import java.time.Instant;
 @Entity
 @Table(name = "subscriptions")
 @EntityListeners(AuditingEntityListener.class)
-public class Subscription {
+public class Subscription implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

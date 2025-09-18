@@ -1,7 +1,6 @@
 package com.faceit.caloriecalculator.data.constant;
 
-public enum Subscription {
-    FREE,
-    PRO
+public enum UserGender {
+    MALE,
+    FEMALE,
 }
-

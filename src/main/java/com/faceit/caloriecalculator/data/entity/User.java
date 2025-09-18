@@ -1,6 +1,6 @@
 package com.faceit.caloriecalculator.data.entity;
 
-import com.faceit.caloriecalculator.data.constant.Gender;
+import com.faceit.caloriecalculator.data.constant.UserGender;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,6 +16,7 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -25,7 +26,6 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.Instant;
@@ -74,11 +74,15 @@ public class User implements UserDetails {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "gender", nullable = false)
-    private Gender gender;
+    private UserGender gender;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "subscription_id", referencedColumnName = "id")
     private Subscription subscription;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "language_id", referencedColumnName = "id")
+    private Language language;
 
     @ManyToMany
     @JoinTable(name = "user_roles",
@@ -87,9 +91,7 @@ public class User implements UserDetails {
     )
     private Set<Role> userRoles = new HashSet<>();
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "language_id", referencedColumnName = "id")
-    private Language language;
+
 
     @OneToMany(mappedBy = "user", orphanRemoval = true)
     private Set<Meal> meals = new HashSet<>();

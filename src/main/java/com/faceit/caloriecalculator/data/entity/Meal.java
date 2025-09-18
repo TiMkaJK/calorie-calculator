@@ -10,6 +10,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+
+import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
@@ -32,7 +34,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Entity
 @Table(name = "meals")
 @EntityListeners(AuditingEntityListener.class)
-public class Meal {
+public class Meal implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

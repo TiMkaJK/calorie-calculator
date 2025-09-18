@@ -1,8 +1,10 @@
 package com.faceit.caloriecalculator.data.dto;
 
-import com.faceit.caloriecalculator.data.constant.Gender;
-import com.faceit.caloriecalculator.data.constant.Language;
-import com.faceit.caloriecalculator.data.constant.Subscription;
+import com.faceit.caloriecalculator.data.constant.UserGender;
+import com.faceit.caloriecalculator.data.constant.UserLanguage;
+import com.faceit.caloriecalculator.data.constant.UserSubscription;
+import com.faceit.caloriecalculator.data.entity.Language;
+import com.faceit.caloriecalculator.data.entity.Subscription;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -25,7 +27,7 @@ public class UserDTO {
     private Instant birthDate;
     private Integer weight;
     private Integer height;
-    private Gender gender;
+    private UserGender gender;
     private Subscription subscription;
     private Language language;
     private Set<MealDTO> meals;

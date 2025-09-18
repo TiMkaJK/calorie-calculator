@@ -1,6 +1,6 @@
 package com.faceit.caloriecalculator.data.constant;
 
-public enum Language {
+public enum UserLanguage {
     UKRAINE,
     ENGLISH,
     RUSSIAN,

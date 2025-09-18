@@ -1,6 +1,7 @@
 --liquibase formatted sql
 --changeset Dmitry Pristavka:1
 
+DROP TABLE IF EXISTS user_roles;
 DROP TABLE IF EXISTS items;
 DROP TABLE IF EXISTS meals;
 DROP TABLE IF EXISTS subscriptions;
@@ -10,19 +11,19 @@ DROP TABLE IF EXISTS users;
 
 CREATE TABLE users
 (
-    id           SERIAL PRIMARY KEY,
-    first_name   VARCHAR(255)        NOT NULL,
-    last_name    VARCHAR(255)        NOT NULL,
-    email        VARCHAR(255) UNIQUE NOT NULL,
-    picture      VARCHAR(255)        NULL,
-    birth_date   TIMESTAMP           NULL,
-    weight       INT                 NULL,
-    height       INT                 NULL,
-    gender       VARCHAR(10)         NULL,
-    subscription VARCHAR(20)         NULL,
-    language     VARCHAR(20)         NULL,
-    created_at   TIMESTAMP           NOT NULL,
-    updated_at   TIMESTAMP
+    id              SERIAL PRIMARY KEY,
+    first_name      VARCHAR(255)        NOT NULL,
+    last_name       VARCHAR(255)        NOT NULL,
+    email           VARCHAR(255) UNIQUE NOT NULL,
+    picture         VARCHAR(255)        NULL,
+    birth_date      TIMESTAMP           NULL,
+    weight          INT                 NULL,
+    height          INT                 NULL,
+    gender          VARCHAR(10)         NULL,
+    language_id     INTEGER UNIQUE REFERENCES users (id) ON DELETE CASCADE,
+    subscription_id INTEGER UNIQUE REFERENCES users (id) ON DELETE CASCADE,
+    created_at      TIMESTAMP           NOT NULL,
+    updated_at      TIMESTAMP
 );
 --rollback DROP TABLE users;
 
@@ -33,7 +34,7 @@ CREATE TABLE meals
     screenshot_link VARCHAR(100) NOT NULL,
     created_at      TIMESTAMP    NOT NULL,
     updated_at      TIMESTAMP,
-    user_id         INTEGER REFERENCES users (id) ON DELETE CASCADE
+    user_id         INTEGER UNIQUE REFERENCES users (id) ON DELETE CASCADE
 --     user_id         INT          NOT NULL,
 --     CONSTRAINT fk_user_meal
 --         FOREIGN KEY (user_id)
@@ -54,7 +55,7 @@ CREATE TABLE items
     fiber         REAL      NOT NULL,
     created_at    TIMESTAMP NOT NULL,
     updated_at    TIMESTAMP,
-    meal_id       INTEGER REFERENCES users (id) ON DELETE CASCADE
+    meal_id       INTEGER UNIQUE REFERENCES users (id) ON DELETE CASCADE
 --     meal_id       INT       NOT NULL,
 --     CONSTRAINT fk_meal_items
 --         FOREIGN KEY (meal_id)
@@ -69,8 +70,7 @@ CREATE TABLE languages
     name       VARCHAR(50) NOT NULL,
     code       VARCHAR(5)  NOT NULL,
     created_at TIMESTAMP   NOT NULL,
-    updated_at TIMESTAMP,
-    user_id    INTEGER REFERENCES users (id) ON DELETE CASCADE
+    updated_at TIMESTAMP
 );
 --rollback DROP TABLE languages;
 
@@ -80,8 +80,7 @@ CREATE TABLE subscriptions
     name        VARCHAR(50) NOT NULL,
     description VARCHAR(200),
     created_at  TIMESTAMP   NOT NULL,
-    updated_at  TIMESTAMP,
-    user_id    INTEGER REFERENCES users (id) ON DELETE CASCADE
+    updated_at  TIMESTAMP
 );
 --rollback DROP TABLE subscriptions;
 
