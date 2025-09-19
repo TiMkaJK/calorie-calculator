@@ -84,14 +84,8 @@ public class User implements UserDetails {
     @JoinColumn(name = "language_id", referencedColumnName = "id")
     private Language language;
 
-    @ManyToMany
-    @JoinTable(name = "user_roles",
-            joinColumns = @JoinColumn(name = "userId"),
-            inverseJoinColumns = @JoinColumn(name = "roleId")
-    )
-    private Set<Role> userRoles = new HashSet<>();
-
-
+    @OneToMany(mappedBy = "user", orphanRemoval = true)
+    private Set<Role> roles = new HashSet<>();
 
     @OneToMany(mappedBy = "user", orphanRemoval = true)
     private Set<Meal> meals = new HashSet<>();

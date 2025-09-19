@@ -6,7 +6,8 @@ import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,8 +20,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
 import java.time.Instant;
-import java.util.HashSet;
-import java.util.Set;
 
 @Builder
 @AllArgsConstructor
@@ -42,8 +41,9 @@ public class Role implements Serializable {
     @Column(name = "description")
     private String description;
 
-    @ManyToMany(mappedBy = "userRoles")
-    private Set<User> users = new HashSet<>();
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     @CreatedDate
     @Column(name = "created_at", updatable = false)

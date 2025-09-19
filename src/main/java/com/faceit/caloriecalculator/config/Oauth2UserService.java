@@ -9,7 +9,6 @@ import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.stereotype.Component;
 
-@Component
 //@Service
 public class Oauth2UserService extends OidcUserService {
 
