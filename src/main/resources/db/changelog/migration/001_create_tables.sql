@@ -3,17 +3,17 @@
 
 DROP TABLE IF EXISTS items;
 DROP TABLE IF EXISTS meals;
+DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS subscriptions;
 DROP TABLE IF EXISTS roles;
 DROP TABLE IF EXISTS languages;
-DROP TABLE IF EXISTS users;
 
 CREATE TABLE languages
 (
     id         SERIAL PRIMARY KEY,
-    name       VARCHAR(50) NOT NULL,
-    code       VARCHAR(5)  NOT NULL,
-    created_at TIMESTAMP   NOT NULL,
+    name       VARCHAR(50) UNIQUE NOT NULL,
+    code       VARCHAR(5)         NOT NULL,
+    created_at TIMESTAMP          NOT NULL,
     updated_at TIMESTAMP
 );
 --rollback DROP TABLE languages;
@@ -21,9 +21,9 @@ CREATE TABLE languages
 CREATE TABLE subscriptions
 (
     id          SERIAL PRIMARY KEY,
-    name        VARCHAR(50) NOT NULL,
+    name        VARCHAR(50) UNIQUE NOT NULL,
     description VARCHAR(200),
-    created_at  TIMESTAMP   NOT NULL,
+    created_at  TIMESTAMP          NOT NULL,
     updated_at  TIMESTAMP
 );
 --rollback DROP TABLE subscriptions;
@@ -31,9 +31,9 @@ CREATE TABLE subscriptions
 CREATE TABLE roles
 (
     id          SERIAL PRIMARY KEY,
-    name        VARCHAR(50) NOT NULL,
+    name        VARCHAR(50) UNIQUE NOT NULL,
     description VARCHAR(200),
-    created_at  TIMESTAMP   NOT NULL,
+    created_at  TIMESTAMP          NOT NULL,
     updated_at  TIMESTAMP
 );
 --rollback DROP TABLE roles;
@@ -44,6 +44,7 @@ CREATE TABLE users
     first_name      VARCHAR(255)        NOT NULL,
     last_name       VARCHAR(255)        NOT NULL,
     email           VARCHAR(255) UNIQUE NOT NULL,
+    password        VARCHAR(255)        NULL,
     picture         VARCHAR(255)        NULL,
     birth_date      TIMESTAMP           NULL,
     weight          INT                 NULL,

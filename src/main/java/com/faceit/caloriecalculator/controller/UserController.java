@@ -2,6 +2,7 @@ package com.faceit.caloriecalculator.controller;
 
 import com.faceit.caloriecalculator.data.dto.UserDTO;
 import com.faceit.caloriecalculator.data.dto.UserRequest;
+import com.faceit.caloriecalculator.data.mapper.UserMapper;
 import com.faceit.caloriecalculator.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -19,11 +20,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
     private final UserService userService;
+    private final UserMapper userMapper;
 
     @PostMapping("/register")
     public ResponseEntity<UserDTO> registerUser(@Valid @RequestBody UserRequest userRequest) {
         log.info("Registering user");
-        return null;
+        return ResponseEntity.ok(userMapper.toDto(userService.create(userRequest)));
     }
 }
 

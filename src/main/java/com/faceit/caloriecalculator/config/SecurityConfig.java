@@ -25,7 +25,7 @@ public class SecurityConfig {
                 .cors(AbstractHttpConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/public/**", "/login", "/register", "/api/meals", "/v3/api-docs/**", "/swagger-ui/**").permitAll() // Allow public access to these paths
+                        .requestMatchers("/public/**", "/login", "/register", "/api/meals","/api/users/***", "/v3/api-docs/**", "/swagger-ui/**").permitAll() // Allow public access to these paths
                         .anyRequest().authenticated()) // All other requests require authentication
                 .authenticationProvider(usernamePasswordAuthenticationProvider)
                 .formLogin(Customizer.withDefaults())
